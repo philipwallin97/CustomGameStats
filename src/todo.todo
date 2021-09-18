@@ -1,0 +1,53 @@
+Other:
+  ✔ Add post method that you can upload json game
+  ✔ Add post method that you can upload json timeline
+  ✔ If uploading a game with same id, do nothing
+  ✔ Flow for game uploads
+    1. Upload gamedata file
+      Add data to db
+    2. Upload timeline file
+      Check filename, get gameid from gamedata gameid
+      Add id to timeline 
+      Add to db
+
+Games:
+  ✔ Göra en mindre preview på varje game som man får fälla ut
+    Datum, gubbar och namn i liten font
+    Typ som op.gg
+
+Leaderboard:
+  ✔ Flest kills i ett game
+  ✔ Flest deaths i ett game
+   ☐ Flest firstbloods
+    Finns i api
+   ☐ Flest gånger man dött först
+  Finns i api
+  ✔ Most bans
+  ✔ Most picks
+  ✔ Cursor på tabell header
+  ✔ Sortera på win% default
+
+
+Gamedetails page:
+  ✔ Add button to game summary on game page to gamedetails
+  ✔ Add button from leaderboard stats to gamedetails
+  ✔ Player builds
+  ✔ Map with info
+  ✔ Bans
+  ☐ Firstblood
+  ✔ Towers
+  ✔ Graph for cs
+  ✔ Graph for damage
+  ✔ Graph for gold
+  ✔ Gold graph per player - linegraph
+  ✔ Bouble graph kill positions
+  ✔ Cursor på tabell header
+  ☐ Vilka drakar som har tagits
+    Måste nog göras via timeline
+
+Player:
+  ✔ Win% per gubbe
+  ✔ API
+  ✔ Cursor på tabell header
+  ✔ Average kills sorterar fel
+  ✔ Visar mindre matcher på lane stats

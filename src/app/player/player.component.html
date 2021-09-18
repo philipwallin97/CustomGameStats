@@ -1,0 +1,318 @@
+<!-- Player stats -->
+<div class="container"  style="border-style: solid; border-color: #0f202b; margin-bottom: 10px;">
+  <span *ngIf="player">
+    <h3 style="color: #b1ada0; text-align: center; margin-top:10px;"><img src="./assets/profileIcons/{{player.profileIcon}}.png" alt="champ" width="40" height="40" style="margin-left:25px;"> {{player.summonerName}}</h3>
+  </span>
+  <div class="container" >
+    <div class="row" style="margin-bottom: 50px;">
+      <div class="col-md-6">
+        <span *ngIf="playerKDA">
+          <p style="text-align: center; margin-top: 10px;">Total stats</p>
+          <h3 style="text-align: center;">{{playerKDA.stat2}}</h3>
+        </span>
+      </div>  
+      <div class="col-md-6">
+        <span *ngIf="playerKDA">
+          <p style="text-align: center; margin-top: 10px;">Average KDA</p>
+          <h3 style="text-align: center;">{{playerKDA.stat}}</h3>
+        </span>
+      </div>  
+    </div>
+    <div class="row" style="margin-bottom: 30px;">
+      <div class="col-md-4">
+        <span *ngIf="playerWinLosePercent">
+          <p style="text-align: center; margin-top: 10px;">Wins</p>
+          <h3 style="text-align: center;">{{playerWinLosePercent.stat}}</h3>
+        </span>
+      </div>  
+      <div class="col-md-4">
+        <span *ngIf="playerWinLosePercent">
+          <p style="text-align: center; margin-top: 10px;">Losses</p>
+          <h3 style="text-align: center;">{{playerWinLosePercent.stat2}}</h3>
+        </span>
+      </div>  
+      <div class="col-md-4">
+        <span *ngIf="playerWinLosePercent">
+          <p style="text-align: center; margin-top: 10px;">Win%</p>
+          <h3 style="text-align: center;">{{playerWinLosePercent.stat3}}%</h3>
+        </span>
+      </div>  
+    </div>
+    <div class="row" style="margin-bottom: 30px;">
+      <div class="col-md-4">
+        <span *ngIf="playerMostKills">
+          <p style="text-align: center; margin-top: 10px;">Most kills in a game</p>
+          <div style="text-align: center;">
+            <img src="./assets/champIcons/{{playerMostKills.stat2}}.png" alt="champ" width="70" height="70" style="border-radius: 50%; border-style: solid; border-color: #7e6123;">
+          </div>
+          <h3 style="text-align: center; margin-top: 10px;">{{playerMostKills.stat}} kills</h3>
+        </span>
+      </div>  
+      <div class="col-md-4">
+        <span *ngIf="playerMostDeaths">
+          <p style="text-align: center; margin-top: 10px;">Most deaths in a game</p>
+          <div style="text-align: center;">
+            <img src="./assets/champIcons/{{playerMostDeaths.stat2}}.png" alt="champ" width="70" height="70" style="border-radius: 50%; border-style: solid; border-color: #7e6123;">
+          </div>
+          <h3 style="text-align: center; margin-top: 10px;">{{playerMostDeaths.stat}} deaths</h3>
+        </span>
+      </div>  
+      <div class="col-md-4">
+        <span *ngIf="playerMostAssists">
+          <p style="text-align: center; margin-top: 10px;">Most assists in a game</p>
+          <div style="text-align: center;">
+            <img src="./assets/champIcons/{{playerMostAssists.stat2}}.png" alt="champ" width="70" height="70" style="border-radius: 50%; border-style: solid; border-color: #7e6123;">
+          </div>
+          <h3 style="text-align: center; margin-top: 10px;">{{playerMostAssists.stat}} assists</h3>
+        </span>
+      </div>  
+    </div>
+    <div class="row" style="margin-bottom: 50px;">
+      <div class="col-md-3">
+        <span *ngIf="playerMultipleKillStats">
+          <p style="text-align: center; margin-top: 10px;">Double kills</p>
+          <h3 style="text-align: center;">{{playerMultipleKillStats.stat}}</h3>
+        </span>
+      </div>  
+      <div class="col-md-3">
+        <span *ngIf="playerMultipleKillStats">
+          <p style="text-align: center; margin-top: 10px;">Triple kills</p>
+          <h3 style="text-align: center;">{{playerMultipleKillStats.stat2}}</h3>
+        </span>
+      </div>  
+      <div class="col-md-3">
+        <span *ngIf="playerMultipleKillStats">
+          <p style="text-align: center; margin-top: 10px;">Quadra kills</p>
+          <h3 style="text-align: center;">{{playerMultipleKillStats.stat3}}</h3>
+        </span>
+      </div>  
+      <div class="col-md-3">
+        <span *ngIf="playerMultipleKillStats">
+          <p style="text-align: center; margin-top: 10px;">Penta kills</p>
+          <h3 style="text-align: center;">{{playerMultipleKillStats.stat4}}</h3>
+        </span>
+      </div>  
+    </div>
+  </div>
+</div>
+
+<!-- Lane stats -->
+<div class="container"  style="border-style: solid; border-color: #0f202b; margin-bottom: 10px;">
+  <div class="container" >
+    <div class="row" style="margin-bottom: 50px;">
+      <h3 style="color: #b1ada0; text-align: center; margin-top:10px; margin-bottom: 20px;">Lane stats</h3>
+
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col" style="color: #b1ada0; text-align: center;">Lane</th>
+          <th scope="col" style="color: #b1ada0; text-align: center;">Games</th>
+          <th scope="col" style="color: #b1ada0; text-align: center;">Damage</th>
+          <th scope="col" style="color: #b1ada0; text-align: center;">Kills</th>
+          <th scope="col" style="color: #b1ada0; text-align: center;">Deaths</th>
+          <th scope="col" style="color: #b1ada0; text-align: center;">Assists</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td style="color: #b1ada0; text-align: center;"><img src="./assets/laneIcons/Top.png" alt="champ" width="30" height="30" style="margin-left:25px;"> Top</td>
+          <td *ngIf="playerLaneStat" style="color: #b1ada0; text-align: center;">{{playerLaneStat.gamesTop | number : '1.0-0'}}</td>
+          <td *ngIf="playerLaneStat" style="color: #b1ada0; text-align: center;">{{playerLaneStat.damageTop / playerLaneStat.gamesTop | number : '1.0-0'}}</td>
+          <td *ngIf="playerLaneStat" style="color: #b1ada0; text-align: center;">{{playerLaneStat.killsTop / playerLaneStat.gamesTop | number : '1.1-1'}}</td>
+          <td *ngIf="playerLaneStat" style="color: #b1ada0; text-align: center;">{{playerLaneStat.deathsTop / playerLaneStat.gamesTop | number : '1.1-1'}}</td>
+          <td *ngIf="playerLaneStat" style="color: #b1ada0; text-align: center;">{{playerLaneStat.assistsTop / playerLaneStat.gamesTop | number : '1.1-1'}}</td>
+        </tr>
+        <tr>
+          <td style="color: #b1ada0; text-align: center;"><img src="./assets/laneIcons/Jungle.png" alt="champ" width="30" height="30" style="margin-left:25px;"> Jgl</td>
+          <td *ngIf="playerLaneStat" style="color: #b1ada0; text-align: center;">{{playerLaneStat.gamesJungle | number : '1.0-0'}}</td>
+          <td *ngIf="playerLaneStat" style="color: #b1ada0; text-align: center;">{{playerLaneStat.damageJungle / playerLaneStat.gamesJungle | number : '1.0-0'}}</td>
+          <td *ngIf="playerLaneStat" style="color: #b1ada0; text-align: center;">{{playerLaneStat.killsJungle / playerLaneStat.gamesJungle | number : '1.1-1'}}</td>
+          <td *ngIf="playerLaneStat" style="color: #b1ada0; text-align: center;">{{playerLaneStat.deathsJungle / playerLaneStat.gamesJungle | number : '1.1-1'}}</td>
+          <td *ngIf="playerLaneStat" style="color: #b1ada0; text-align: center;">{{playerLaneStat.assistsJungle / playerLaneStat.gamesJungle | number : '1.1-1'}}</td>
+        </tr>
+        <tr>
+          <td style="color: #b1ada0; text-align: center;"><img src="./assets/laneIcons/Mid.png" alt="champ" width="30" height="30" style="margin-left:25px;"> Mid</td>
+          <td *ngIf="playerLaneStat" style="color: #b1ada0; text-align: center;">{{playerLaneStat.gamesMid | number : '1.0-0'}}</td>
+          <td *ngIf="playerLaneStat" style="color: #b1ada0; text-align: center;">{{playerLaneStat.damageMid / playerLaneStat.gamesMid | number : '1.0-0'}}</td>
+          <td *ngIf="playerLaneStat" style="color: #b1ada0; text-align: center;">{{playerLaneStat.killsMid / playerLaneStat.gamesMid | number : '1.1-1'}}</td>
+          <td *ngIf="playerLaneStat" style="color: #b1ada0; text-align: center;">{{playerLaneStat.deathsMid / playerLaneStat.gamesMid | number : '1.1-1'}}</td>
+          <td *ngIf="playerLaneStat" style="color: #b1ada0; text-align: center;">{{playerLaneStat.assistsMid / playerLaneStat.gamesMid | number : '1.1-1'}}</td>
+        </tr>
+        <tr>
+          <td style="color: #b1ada0; text-align: center;"><img src="./assets/laneIcons/Bot.png" alt="champ" width="30" height="30" style="margin-left:25px;"> ADC</td>
+          <td *ngIf="playerLaneStat" style="color: #b1ada0; text-align: center;">{{playerLaneStat.gamesBot | number : '1.0-0'}}</td>
+          <td *ngIf="playerLaneStat" style="color: #b1ada0; text-align: center;">{{playerLaneStat.damageBot / playerLaneStat.gamesBot | number : '1.0-0'}}</td>
+          <td *ngIf="playerLaneStat" style="color: #b1ada0; text-align: center;">{{playerLaneStat.killsBot / playerLaneStat.gamesBot | number : '1.1-1'}}</td>
+          <td *ngIf="playerLaneStat" style="color: #b1ada0; text-align: center;">{{playerLaneStat.deathsBot / playerLaneStat.gamesBot | number : '1.1-1'}}</td>
+          <td *ngIf="playerLaneStat" style="color: #b1ada0; text-align: center;">{{playerLaneStat.assistsBot / playerLaneStat.gamesBot | number : '1.1-1'}}</td>
+        </tr>
+        <tr>
+          <td style="color: #b1ada0; text-align: center;"><img src="./assets/laneIcons/Support.png" alt="champ" width="30" height="30" style="margin-left:25px;"> Sup</td>
+          <td *ngIf="playerLaneStat" style="color: #b1ada0; text-align: center;">{{playerLaneStat.gamesSupport | number : '1.0-0'}}</td>
+          <td *ngIf="playerLaneStat" style="color: #b1ada0; text-align: center;">{{playerLaneStat.damageSupport / playerLaneStat.gamesSupport | number : '1.0-0'}}</td>
+          <td *ngIf="playerLaneStat" style="color: #b1ada0; text-align: center;">{{playerLaneStat.killsSupport / playerLaneStat.gamesSupport | number : '1.1-1'}}</td>
+          <td *ngIf="playerLaneStat" style="color: #b1ada0; text-align: center;">{{playerLaneStat.deathsSupport / playerLaneStat.gamesSupport | number : '1.1-1'}}</td>
+          <td *ngIf="playerLaneStat" style="color: #b1ada0; text-align: center;">{{playerLaneStat.assistsSupport / playerLaneStat.gamesSupport | number : '1.1-1'}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Champ stats -->
+<div class="container"  style="border-style: solid; border-color: #0f202b; margin-bottom: 10px;">
+  <div class="row" style="margin-bottom: 20px; margin-top: 10px;">
+    <h3 style="color: #b1ada0; text-align: center; margin-top:10px;">Champ stats</h3>
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col" [appSort]="champStats" data-order="desc" data-name="summonerName" style="color: #b1ada0; text-align: center; cursor: pointer;">Champ</th>
+        <th scope="col" [appSort]="champStats" data-order="desc" data-name="nrOfTimes" style="color: #b1ada0; text-align: center; cursor: pointer;">Games</th>
+        <th scope="col" [appSort]="champStats" data-order="desc" data-name="wins" style="color: #b1ada0; text-align: center; cursor: pointer;">Wins</th>
+        <th scope="col" [appSort]="champStats" data-order="desc" data-name="losses" style="color: #b1ada0; text-align: center; cursor: pointer;">Losses</th>
+        <th scope="col" [appSort]="champStats" data-order="desc" data-name="averageKills" style="color: #b1ada0; text-align: center; cursor: pointer;">Average Kills</th>
+        <th scope="col" [appSort]="champStats" data-order="desc" data-name="averageDeaths" style="color: #b1ada0; text-align: center; cursor: pointer;">Average Deaths</th>
+        <th scope="col" [appSort]="champStats" data-order="desc" data-name="averageAssists" style="color: #b1ada0; text-align: center; cursor: pointer;">Average Assists</th>
+        <th scope="col" [appSort]="champStats" data-order="desc" data-name="winPercent" style="color: #b1ada0; text-align: center; cursor: pointer;">Win%</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let champStat of champStats">
+        <!-- <td><span style="color: #b1ada0;"><img src="./assets/champIcons/{{champStat.champId}}.png" alt="champ" width="30" height="30" >{{champStat.champId}}</span></td> -->
+        
+        <ng-container *ngFor="let champ of champs">
+          <td *ngIf="champ.id == champStat.champId" style="color: #7c9c57;"><span style="color: #b1ada0;"><img src="./assets/champIcons/{{champStat.champId}}.png" alt="champ" width="30" height="30" style="margin-left: 25px;"> {{champ.name}}</span></td>
+          
+        </ng-container>
+
+        
+        <td style="text-align:center"><span style="color: #b1ada0;">{{champStat.nrOfTimes}}</span></td>
+        <td style="text-align:center"><span style="color: #b1ada0;">{{champStat.wins}}</span></td>
+        <td style="text-align:center"><span style="color: #b1ada0;">{{champStat.losses}}</span></td> 
+        <td style="text-align:center"><span style="color: #b1ada0;">{{champStat.averageKills}}</span></td> 
+        <td style="text-align:center"><span style="color: #b1ada0;">{{champStat.averageDeaths}}</span></td> 
+        <td style="text-align:center"><span style="color: #b1ada0;">{{champStat.averageAssists}}</span></td> 
+        <td style="text-align:center"><span style="color: #b1ada0;">{{champStat.winPercent}}</span></td> 
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Teammate history -->
+<div class="container"  style="border-style: solid; border-color: #0f202b; margin-bottom: 10px;">
+  <div class="row" style="margin-bottom: 20px; margin-top: 10px;">
+    <h3 style="color: #b1ada0; text-align: center; margin-top:10px;">Teammate stats</h3>
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col" [appSort]="teammateStats" data-order="desc" data-name="summonerName" style="color: #b1ada0; text-align: center; cursor: pointer;">Ign</th>
+        <th scope="col" [appSort]="teammateStats" data-order="desc" data-name="wins" style="color: #b1ada0; text-align: center; cursor: pointer;">Wins</th>
+        <th scope="col" [appSort]="teammateStats" data-order="desc" data-name="losses" style="color: #b1ada0; text-align: center; cursor: pointer;">Losses</th>
+        <th scope="col" [appSort]="teammateStats" data-order="desc" data-name="nrOfGames" style="color: #b1ada0; text-align: center; cursor: pointer;">Games</th>
+        <th scope="col" [appSort]="teammateStats" data-order="desc" data-name="winPercent" style="color: #b1ada0; text-align: center; cursor: pointer;">Win%</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let teammateStat of teammateStats">
+        <td style="text-align:center"><span style="color: #b1ada0;"><a href="/inhouse/player?summonerId={{teammateStat.summonerId}}" style="color: #b1ada0; text-decoration: none;">{{teammateStat.summonerName}}</a></span></td>
+        <td style="text-align:center"><span style="color: #b1ada0;">{{teammateStat.wins}}</span></td>
+        <td style="text-align:center"><span style="color: #b1ada0;">{{teammateStat.losses}}</span></td>
+        <td style="text-align:center"><span style="color: #b1ada0;">{{teammateStat.nrOfGames}}</span></td> 
+        <td style="text-align:center"><span style="color: #b1ada0;">{{teammateStat.winPercent}}</span></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Game history -->
+<div class="container"  style="border-style: solid; border-color: #0f202b; margin-bottom: 10px;">
+  <div class="row" style="margin-bottom: 20px; margin-top: 10px;">
+    <h3 style="color: #b1ada0; text-align: center; margin-top:10px;">Games</h3>
+    <div class="col-md-10">
+      <p></p>
+    </div>
+    <div class="col-md-1">
+      <p style="color: #b1ada0; margin-left: -110px;">CS</p>
+    </div>
+    <div class="col-md-1">
+      <p style="color: #b1ada0; margin-left: -120px;">Gold</p>
+    </div>
+    <div *ngFor="let game of games">
+      <div class="row">
+        <div class="col-md-1">
+          <!-- Role icon -->
+          <span *ngIf="game.timeline.lane == 'BOTTOM'; then thenBlock else elseBlock"></span>
+          <ng-template #thenBlock>
+            <span *ngIf="game.timeline.role == 'DUO_CARRY'; then adcBlock else supportBlock"></span> 
+            <ng-template #adcBlock>
+              <img src="./assets/laneIcons/Bot.png" alt="champ" width="30" height="30" style="margin-left:25px;">
+            </ng-template>
+            <ng-template #supportBlock>
+              <img src="./assets/laneIcons/Support.png" alt="champ" width="30" height="30" style="margin-left:25px;">
+            </ng-template>
+          </ng-template>
+          <ng-template #elseBlock>
+            <span *ngIf="game.timeline.lane == 'JUNGLE'; then jungleBlock else midtopBlock"></span> 
+            <ng-template #jungleBlock>
+              <img src="./assets/laneIcons/Jungle.png" alt="champ" width="30" height="30" style="margin-left:25px;">
+            </ng-template>
+            <ng-template #midtopBlock>
+              <span *ngIf="game.timeline.lane == 'MIDDLE'; then midBlock else topBlock"></span> 
+              <ng-template #midBlock>
+                <img src="./assets/laneIcons/Mid.png" alt="champ" width="30" height="30" style="margin-left:25px;">
+              </ng-template>
+              <ng-template #topBlock>
+                <img src="./assets/laneIcons/Top.png" alt="champ" width="30" height="30" style="margin-left:25px;">
+              </ng-template>
+            </ng-template>
+          </ng-template>
+        </div>
+        <div class="col-md-1" style="margin-left: -50px;">
+          <img src="./assets/runeIcons/{{game.stats.perk0}}.png" alt="champ" width="30" height="30" >
+        </div>
+        <div class="col-md-1" style="margin-left: -75px;">
+          <img src="./assets/summonerSpellIcons/{{game.spell1Id}}.png" alt="sum{{game.spell1Id}}" width="15" height="15" style="margin-top: -12px;">
+          <br>
+          <img src="./assets/summonerSpellIcons/{{game.spell2Id}}.png" alt="sum{{game.spell2Id}}" width="15" height="15" style="margin-top: -28px;">
+        </div>
+        <div class="col-md-1" style="margin-left: -85px;">
+          <p>{{game.stats.champLevel}}</p>
+        </div>
+        <div class="col-md-1" style="margin-left: -80px;">
+          <img src="./assets/champIcons/{{game.championId}}.png" alt="champ" width="30" height="30" style="border-radius: 50%; border-style: solid; border-color: #7e6123;">
+
+        </div>
+        <div class="col-md-2"style="margin-left: -70px;">
+          <ng-container *ngFor="let champ of champs">
+            <span *ngIf="game.stats.win; then thenBlock else elseBlock"></span>
+            <ng-template #thenBlock><a *ngIf="champ.id == game.championId" style="color: #7c9c57;">{{champ.name}}</a></ng-template>
+            <ng-template #elseBlock><a *ngIf="champ.id == game.championId" style="color: #aa6f68;">{{champ.name}}</a></ng-template>
+            
+          </ng-container>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-3">
+          <img src="./assets/itemIcons/{{game.stats.item0}}.png" alt="item{{game.stats.item0}}" width="30" height="30" style="margin-right: 2px; border-style: solid; border-color: #463714;">
+          <img src="./assets/itemIcons/{{game.stats.item1}}.png" alt="item{{game.stats.item1}}" width="30" height="30" style="margin-right: 2px; border-style: solid; border-color: #463714;">
+          <img src="./assets/itemIcons/{{game.stats.item2}}.png" alt="item{{game.stats.item2}}" width="30" height="30" style="margin-right: 2px; border-style: solid; border-color: #463714;">
+          <img src="./assets/itemIcons/{{game.stats.item3}}.png" alt="item{{game.stats.item3}}" width="30" height="30" style="margin-right: 2px; border-style: solid; border-color: #463714;">
+          <img src="./assets/itemIcons/{{game.stats.item4}}.png" alt="item{{game.stats.item4}}" width="30" height="30" style="margin-right: 2px; border-style: solid; border-color: #463714;">
+          <img src="./assets/itemIcons/{{game.stats.item5}}.png" alt="item{{game.stats.item5}}" width="30" height="30" style="margin-right: 2px; border-style: solid; border-color: #463714;">
+          <img src="./assets/itemIcons/{{game.stats.item6}}.png" alt="item{{game.stats.item6}}" width="30" height="30" style="margin-right: 2px; border-style: solid; border-color: #463714;">
+        </div>
+        <div class="col-md-1">
+          <p style="text-align: center;">{{game.stats.kills}}/{{game.stats.deaths}}/{{game.stats.assists}}</p>
+        </div>
+        <div class="col-md-1">
+          <p style="text-align: center;">{{game.stats.totalMinionsKilled + game.stats.neutralMinionsKilled}}</p>
+        </div>
+        <div class="col-md-1">
+          <p style="text-align: center;">{{game.stats.goldEarned | number:'1.0':'en-US'}}</p>
+        </div>   
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,234 @@
+<span *ngIf="game">  
+  <div class="container"  style="border-style: solid; border-color: #0f202b; margin-bottom: 100px;">
+    <div class="row">
+
+      <!-- Date and duration -->
+      <div class="col-md-6" style="margin-top: 20px;">
+        <p style="text-align: center; color: #b1ada0;">Date: {{game.gameData.gameCreation | date: 'dd/MM-yyyy'}}</p>
+      </div>
+      <div class="col-md-6" style="margin-top: 20px;">
+        <p style="text-align: center; color: #b1ada0;">Game duration: {{ game.gameData.gameDuration * 1000 | date:'mm:ss'}} </p>
+      </div>
+
+      <div class="col-md-12" *ngFor="let team of game.gameData.teams">
+        <div *ngIf="team.win == 'Win'; then thenBlock else elseBlock"></div>
+        <ng-template #thenBlock>
+          <p *ngIf="team.teamId == 100" style="text-align: center; font-weight: bold; color: #4788b6;">Winning Team</p>
+          <p *ngIf="team.teamId == 200" style="text-align: center; font-weight: bold; color: #e62142;">Winning Team</p>
+        </ng-template>
+
+        <ng-template #elseBlock>
+          <p *ngIf="team.teamId == 100" style="text-align: center; font-weight: bold; color: #4788b6;">Losing Team</p>
+          <p *ngIf="team.teamId == 200" style="text-align: center; font-weight: bold; color: #e62142;">Losing Team</p>
+        </ng-template>
+
+        <!-- Game stats -->
+        <div class="row" style="margin-bottom: 20px;">
+          <div style="color: #b1ada0; margin-left: 20px" class="col-md-2">Towers: {{team.towerKills}}</div>
+          <div style="color: #b1ada0; margin-left: -80px" class="col-md-1">Inhibs: {{team.inhibitorKills}}</div>
+          <div style="color: #b1ada0; margin-left: 20px" class="col-md-1">Barons: {{team.baronKills}}</div>
+          <div style="color: #b1ada0; margin-left: 20px" class="col-md-1">Heralds: {{team.riftHeraldKills}}</div>
+          <div style="color: #b1ada0; margin-left: 455px" class="col-md-1">CS</div>
+          <div style="color: #b1ada0; margin-left: -10px" class="col-md-1">Gold</div>
+        </div>
+        
+        <!-- participants -->
+        <div *ngFor="let participant of game.gameData.participants" style="margin-bottom: 5px;" >        
+          <div class="row" *ngIf="participant.teamId == team.teamId">
+            <div class="col-md-1">
+              <!-- Role icon -->
+              <span *ngIf="participant.timeline.lane == 'BOTTOM'; then thenBlock else elseBlock"></span>
+              <ng-template #thenBlock>
+                <span *ngIf="participant.timeline.role == 'DUO_CARRY'; then adcBlock else supportBlock"></span> 
+                <ng-template #adcBlock>
+                  <img src="./assets/laneIcons/Bot.png" alt="champ" width="30" height="30" style="margin-left:25px;">
+                </ng-template>
+                <ng-template #supportBlock>
+                  <img src="./assets/laneIcons/Support.png" alt="champ" width="30" height="30" style="margin-left:25px;">
+                </ng-template>
+              </ng-template>
+              <ng-template #elseBlock>
+                <span *ngIf="participant.timeline.lane == 'JUNGLE'; then jungleBlock else midtopBlock"></span> 
+                <ng-template #jungleBlock>
+                  <img src="./assets/laneIcons/Jungle.png" alt="champ" width="30" height="30" style="margin-left:25px;">
+                </ng-template>
+                <ng-template #midtopBlock>
+                  <span *ngIf="participant.timeline.lane == 'MIDDLE'; then midBlock else topBlock"></span> 
+                  <ng-template #midBlock>
+                    <img src="./assets/laneIcons/Mid.png" alt="champ" width="30" height="30" style="margin-left:25px;">
+                  </ng-template>
+                  <ng-template #topBlock>
+                    <img src="./assets/laneIcons/Top.png" alt="champ" width="30" height="30" style="margin-left:25px;">
+                  </ng-template>
+                </ng-template>
+              </ng-template>
+            </div>
+            <!-- Runes -->
+            <div class="col-md-1" style="margin-left: -50px;">
+              <img src="./assets/runeIcons/{{participant.stats.perk0}}.png" alt="champ" width="30" height="30" >
+            </div>
+            <!-- Summoner spells -->
+            <div class="col-md-1" style="margin-left: -75px;">
+              <img src="./assets/summonerSpellIcons/{{participant.spell1Id}}.png" alt="sum{{participant.spell1Id}}" width="15" height="15" style="margin-top: -12px;">
+              <br>
+              <img src="./assets/summonerSpellIcons/{{participant.spell2Id}}.png" alt="sum{{participant.spell2Id}}" width="15" height="15" style="margin-top: -28px;">
+            </div>
+            <!-- Level -->
+            <div class="col-md-1" style="margin-left: -85px;">
+              <p>{{participant.stats.champLevel}}</p>
+            </div>
+            <!-- Champ icon -->
+            <div class="col-md-1" style="margin-left: -80px;">
+              <img src="./assets/champIcons/{{participant.championId}}.png" alt="champ" width="30" height="30" style="border-radius: 50%; border-style: solid; border-color: #7e6123;">
+            </div>
+            <!-- Summoner name -->
+            <div class="col-md-2"style="margin-left: -70px;">
+              <span *ngFor="let participantIdentitiy of game.gameData.participantIdentities">
+                <a href="/inhouse/player?summonerId={{participantIdentitiy.player.summonerId}}" *ngIf="participantIdentitiy.participantId == participant.participantId" style="color: #b1ada0; text-decoration: none;">{{participantIdentitiy.player.summonerName}}</a>
+              </span>
+            </div>
+            <div class="col-md-1"></div>
+            <!-- Items -->
+            <div class="col-md-3">
+              <img src="./assets/itemIcons/{{participant.stats.item0}}.png" alt="item{{participant.stats.item0}}" width="30" height="30" style="margin-right: 2px; border-style: solid; border-color: #463714;">
+              <img src="./assets/itemIcons/{{participant.stats.item1}}.png" alt="item{{participant.stats.item1}}" width="30" height="30" style="margin-right: 2px; border-style: solid; border-color: #463714;">
+              <img src="./assets/itemIcons/{{participant.stats.item2}}.png" alt="item{{participant.stats.item2}}" width="30" height="30" style="margin-right: 2px; border-style: solid; border-color: #463714;">
+              <img src="./assets/itemIcons/{{participant.stats.item3}}.png" alt="item{{participant.stats.item3}}" width="30" height="30" style="margin-right: 2px; border-style: solid; border-color: #463714;">
+              <img src="./assets/itemIcons/{{participant.stats.item4}}.png" alt="item{{participant.stats.item4}}" width="30" height="30" style="margin-right: 2px; border-style: solid; border-color: #463714;">
+              <img src="./assets/itemIcons/{{participant.stats.item5}}.png" alt="item{{participant.stats.item5}}" width="30" height="30" style="margin-right: 2px; border-style: solid; border-color: #463714;">
+              <img src="./assets/itemIcons/{{participant.stats.item6}}.png" alt="item{{participant.stats.item6}}" width="30" height="30" style="margin-right: 2px; border-style: solid; border-color: #463714;">
+            </div>
+            <!-- Player stats -->
+            <div class="col-md-1">
+              <p style="text-align: center;">{{participant.stats.kills}}/{{participant.stats.deaths}}/{{participant.stats.assists}}</p>
+            </div>
+            <div class="col-md-1">
+              <p style="text-align: center;">{{participant.stats.totalMinionsKilled + participant.stats.neutralMinionsKilled}}</p>
+            </div>
+            <div class="col-md-1">
+              <p style="text-align: center;">{{participant.stats.goldEarned | number:'1.0':'en-US'}}</p>
+            </div>   
+          </div>
+        </div>
+      </div>
+      <!-- Bans -->
+      <div class="col-md-6" *ngFor="let team of game.gameData.teams">
+        <div class="col-md-5 offset-md-3" >
+          <img *ngFor="let bans of team.bans" src="./assets/champIcons/{{bans.championId}}.png" alt="{{bans.pickTurn}}" width="50" height="50" style="border-radius: 50%; border-style: solid; border-color: #7e6123; margin-bottom:10px;">
+          <p *ngIf="team.teamId == 100" style="text-align: center; font-weight: bold; color: #4788b6;">Blue side bans</p>
+          <p *ngIf="team.teamId == 200" style="text-align: center; font-weight: bold; color: #e62142;">Red side bans</p>
+        </div>
+      </div>
+    </div>
+    <!-- Patch and game id -->
+    <div class="row">
+      <div class="col text-center">
+        <p style="text-align: center; color: #0f202b;">Patch: {{game.gameData.gameVersion}} GaneId: {{game.gameData.gameId}}</p>
+      </div>
+    </div>
+  </div>
+</span>
+
+<!-- Graphs -->
+<div class="container"  style="border-style: solid; border-color: #0f202b; margin-bottom: 100px;">
+  <div class="row">
+    <div class="col-md-4" style="height: 300px;">
+      <!-- CPM -->
+      <ngx-charts-bar-horizontal
+        [results]="CPMData()"
+        [customColors]="CPMColors()"
+        [gradient]="gradient"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [showXAxisLabel]="showXAxisLabel"
+        [xAxisLabel]="CSPMLabel"
+        (select)="onSelect($event)">
+      </ngx-charts-bar-horizontal>
+    </div>
+    <div class="col-md-4">
+      <!-- GPM -->
+      <ngx-charts-bar-horizontal
+        [results]="GPMData()"
+        [customColors]="GPMColors()"
+        [gradient]="gradient"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [showXAxisLabel]="showXAxisLabel"
+        [xAxisLabel]="GPMLabel"
+        (select)="onSelect($event)">
+      </ngx-charts-bar-horizontal>
+    </div>
+    <div class="col-md-4">
+      <!-- Damage -->
+      <ngx-charts-bar-horizontal
+        [results]="DamageData()"
+        [customColors]="DamageColors()"
+        [gradient]="gradient"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [showXAxisLabel]="showXAxisLabel"
+        [xAxisLabel]="DamageLabel"
+        (select)="onSelect($event)">
+      </ngx-charts-bar-horizontal>
+    </div>
+    <!-- Team gold diff -->
+    <div class="col-md-6" style="height: 300px; margin-top:50px;">
+      <ngx-charts-line-chart
+        [showXAxisLabel]="showXAxisLabel"
+        [xAxis]="true"
+        [yAxis]="true"
+        [xAxisLabel]="GoldDiffLabel"
+        [timeline]="false"
+        [results]="GoldDiffData()"
+        (select)="onSelect($event)">
+      </ngx-charts-line-chart>
+    </div>
+    <!-- Team gold -->
+    <div class="col-md-6" style="height: 300px; margin-top:50px;">
+      <ngx-charts-line-chart
+        [showXAxisLabel]="showXAxisLabel"
+        [xAxis]="true"
+        [yAxis]="true"
+        [xAxisLabel]="TeamGoldLabel"
+        [timeline]="false"
+        [results]="TeamGoldData()"
+        (select)="onSelect($event)">
+      </ngx-charts-line-chart>
+    </div>
+    <!-- Player gold -->
+    <div class="col-md-12" style="height: 300px; margin-top:50px;">
+      <ngx-charts-line-chart
+        [showXAxisLabel]="showXAxisLabel"
+        [legend]="true"
+        [xAxis]="true"
+        [yAxis]="true"
+        [xAxisLabel]="PlayerGoldLabel"
+        [timeline]="false"
+        [results]="PlayerGoldData()"
+        (select)="onSelect($event)">
+      </ngx-charts-line-chart>
+    </div>
+    
+    <!-- Kill position map -->
+    <div class="col-md-6 offset-md-3" style="height: 512px; width: 512px; margin-top:50px; background-image: url('assets/other/map11.png'); background-size: cover;">
+      <ngx-charts-bubble-chart
+        [results]="MapKillsData()"
+        [xAxis]="false"
+        [yAxis]="false"
+        [legend]="false"
+        [showXAxisLabel]="false"
+        [showYAxisLabel]="false"
+        [xScaleMin]="xScaleMin"
+        [xScaleMax]="xScaleMax"
+        [yScaleMin]="yScaleMin"
+        [yScaleMax]="yScaleMax"
+        [minRadius]="minRadius"
+        [maxRadius]="maxRadius"
+        (select)="onSelect($event)">
+      </ngx-charts-bubble-chart>
+    </div>
+    <div class="col-md-6 offset-md-2" style="margin-right: 100px; padding-bottom: 50px;">
+      <h3 style="color: #b1ada0; text-align: center;margin-bottom: -20px; margin-left: 100px;">Kill positions</h3>
+    </div>
+  </div>
+</div>

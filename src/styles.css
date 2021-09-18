@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+@import "~font-awesome/css/font-awesome.css";
+
+.container{
+  margin-top:20px;
+}
+
+body {
+  color: white;
+  font-family: Verdana, Geneva, sans-serif;
+  background-image: url("assets/other/gameSummarybg.png");
+  background-size: cover;
+}
+
+tr {
+  border-color: rgba(50,50,50,0.8);
+}
+
+text{
+  fill: #b1ada0 !important;
+}

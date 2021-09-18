@@ -1,0 +1,157 @@
+<span *ngFor="let game of games">
+
+  <!-- Small panel -->
+  <div class="container"  style="border-style: solid; border-color: #0f202b;" (click)="toggleGame(game)">
+    <div class="row" style="margin-bottom: 20px; cursor: pointer;"  *ngIf="!game.showFull">
+      
+      <div class="col-md-8" >
+        <br>
+        <h4 style="color: #b1ada0; text-align: center;">Date: {{game.gameData.gameCreation | date: 'dd/MM-yyyy'}}</h4>
+        <h4 style="color: #b1ada0; text-align: center;">Game duration: {{ game.gameData.gameDuration * 1000 | date:'mm:ss'}}</h4>
+        <p style="color: rgba(136, 133, 122, 0.479); text-align: center;">Click to show more stats</p>
+      </div>
+      <div class="col-md-2" *ngFor="let team of game.gameData.teams">
+        <a *ngIf="team.win == 'Win'" style="color: #b1ada0; text-decoration: none; font-size: 10px;">Winning team</a>
+        <a *ngIf="team.win != 'Win'" style="color: #b1ada0; text-decoration: none; font-size: 10px;">Losing team</a>
+        <div *ngFor="let participant of game.gameData.participants">
+          <div class="row" *ngIf="participant.teamId == team.teamId" style="height: 20px;">
+            <!-- Champ icon -->
+            <div class="col-md-1" style="margin-left: -80px;">
+              <img src="./assets/champIcons/{{participant.championId}}.png" alt="champ" width="18" height="18">
+            </div>
+            <!-- Summoner name -->
+            <div class="col-md-8">
+              <span *ngFor="let participantIdentitiy of game.gameData.participantIdentities">
+                <a *ngIf="participantIdentitiy.participantId == participant.participantId" style="color: #b1ada0; text-decoration: none; font-size: 10px;">{{participantIdentitiy.player.summonerName}}</a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="margin-bottom: 20px; cursor: pointer;"  *ngIf="game.showFull">
+      <div class="col-md-12" >
+        <p style="color: rgba(136, 133, 122, 0.479); text-align: center;">Click to hide game</p>
+      </div>
+    </div>
+  </div>
+
+  
+
+  <!-- More details -->
+  <div class="container" style="border-style: solid; border-color: #0f202b; margin-bottom: 100px;" *ngIf="game.showFull">
+    <div class="row">
+
+      <!-- Date and duration -->
+      <div class="col-md-6" style="margin-top: 20px;">
+        <p style="text-align: center; color: #b1ada0;">Date: {{game.gameData.gameCreation | date: 'dd/MM-yyyy'}}</p>
+      </div>
+      <div class="col-md-6" style="margin-top: 20px;">
+        <p style="text-align: center; color: #b1ada0;">Game duration: {{ game.gameData.gameDuration * 1000 | date:'mm:ss'}} </p>
+      </div>
+
+      <div class="col-md-12" *ngFor="let team of game.gameData.teams">
+        <div *ngIf="team.win == 'Win'; then thenBlock else elseBlock"></div>
+        <ng-template #thenBlock><p style="text-align: center; font-weight: bold;">Winning Team</p></ng-template>
+        <ng-template #elseBlock><p style="text-align: center; font-weight: bold;">Losing Team</p></ng-template>
+
+        <!-- Game stats -->
+        <div class="row" style="margin-bottom: 20px;">
+          <div style="color: #b1ada0; margin-left: 20px" class="col-md-2">Towers: {{team.towerKills}}</div>
+          <div style="color: #b1ada0; margin-left: -80px" class="col-md-1">Inhibs: {{team.inhibitorKills}}</div>
+          <div style="color: #b1ada0; margin-left: 20px" class="col-md-1">Barons: {{team.baronKills}}</div>
+          <div style="color: #b1ada0; margin-left: 20px" class="col-md-1">Heralds: {{team.riftHeraldKills}}</div>
+          <div style="color: #b1ada0; margin-left: 455px" class="col-md-1">CS</div>
+          <div style="color: #b1ada0; margin-left: -10px" class="col-md-1">Gold</div>
+        </div>
+
+        <!-- participants -->
+        <div *ngFor="let participant of game.gameData.participants" style="margin-bottom: 5px;">
+          <div class="row" *ngIf="participant.teamId == team.teamId">
+            <div class="col-md-1">
+              <!-- Role icon -->
+              <span *ngIf="participant.timeline.lane == 'BOTTOM'; then thenBlock else elseBlock"></span>
+              <ng-template #thenBlock>
+                <span *ngIf="participant.timeline.role == 'DUO_CARRY'; then adcBlock else supportBlock"></span>
+                <ng-template #adcBlock>
+                  <img src="./assets/laneIcons/Bot.png" alt="champ" width="30" height="30" style="margin-left:25px;">
+                </ng-template>
+                <ng-template #supportBlock>
+                  <img src="./assets/laneIcons/Support.png" alt="champ" width="30" height="30" style="margin-left:25px;">
+                </ng-template>
+              </ng-template>
+              <ng-template #elseBlock>
+                <span *ngIf="participant.timeline.lane == 'JUNGLE'; then jungleBlock else midtopBlock"></span>
+                <ng-template #jungleBlock>
+                  <img src="./assets/laneIcons/Jungle.png" alt="champ" width="30" height="30" style="margin-left:25px;">
+                </ng-template>
+                <ng-template #midtopBlock>
+                  <span *ngIf="participant.timeline.lane == 'MIDDLE'; then midBlock else topBlock"></span>
+                  <ng-template #midBlock>
+                    <img src="./assets/laneIcons/Mid.png" alt="champ" width="30" height="30" style="margin-left:25px;">
+                  </ng-template>
+                  <ng-template #topBlock>
+                    <img src="./assets/laneIcons/Top.png" alt="champ" width="30" height="30" style="margin-left:25px;">
+                  </ng-template>
+                </ng-template>
+              </ng-template>
+            </div>
+            <!-- Runes -->
+            <div class="col-md-1" style="margin-left: -50px;">
+              <img src="./assets/runeIcons/{{participant.stats.perk0}}.png" alt="champ" width="30" height="30" >
+            </div>
+            <!-- Summoner spells -->
+            <div class="col-md-1" style="margin-left: -75px;">
+              <img src="./assets/summonerSpellIcons/{{participant.spell1Id}}.png" alt="sum{{participant.spell1Id}}" width="15" height="15" style="margin-top: -12px;">
+              <br>
+              <img src="./assets/summonerSpellIcons/{{participant.spell2Id}}.png" alt="sum{{participant.spell2Id}}" width="15" height="15" style="margin-top: -28px;">
+            </div>
+            <!-- Level -->
+            <div class="col-md-1" style="margin-left: -85px;">
+              <p>{{participant.stats.champLevel}}</p>
+            </div>
+            <!-- Champ icon -->
+            <div class="col-md-1" style="margin-left: -80px;">
+              <img src="./assets/champIcons/{{participant.championId}}.png" alt="champ" width="30" height="30" style="border-radius: 50%; border-style: solid; border-color: #7e6123;">
+            </div>
+            <!-- Summoner name -->
+            <div class="col-md-2"style="margin-left: -70px;">
+              <span *ngFor="let participantIdentitiy of game.gameData.participantIdentities">
+                <a href="/inhouse/player?summonerId={{participantIdentitiy.player.summonerId}}" *ngIf="participantIdentitiy.participantId == participant.participantId" style="color: #b1ada0; text-decoration: none;">{{participantIdentitiy.player.summonerName}}</a>
+              </span>
+            </div>
+            <div class="col-md-1"></div>
+            <!-- Items -->
+            <div class="col-md-3">
+              <img src="./assets/itemIcons/{{participant.stats.item0}}.png" alt="item{{participant.stats.item0}}" width="30" height="30" style="margin-right: 2px; border-style: solid; border-color: #463714;">
+              <img src="./assets/itemIcons/{{participant.stats.item1}}.png" alt="item{{participant.stats.item1}}" width="30" height="30" style="margin-right: 2px; border-style: solid; border-color: #463714;">
+              <img src="./assets/itemIcons/{{participant.stats.item2}}.png" alt="item{{participant.stats.item2}}" width="30" height="30" style="margin-right: 2px; border-style: solid; border-color: #463714;">
+              <img src="./assets/itemIcons/{{participant.stats.item3}}.png" alt="item{{participant.stats.item3}}" width="30" height="30" style="margin-right: 2px; border-style: solid; border-color: #463714;">
+              <img src="./assets/itemIcons/{{participant.stats.item4}}.png" alt="item{{participant.stats.item4}}" width="30" height="30" style="margin-right: 2px; border-style: solid; border-color: #463714;">
+              <img src="./assets/itemIcons/{{participant.stats.item5}}.png" alt="item{{participant.stats.item5}}" width="30" height="30" style="margin-right: 2px; border-style: solid; border-color: #463714;">
+              <img src="./assets/itemIcons/{{participant.stats.item6}}.png" alt="item{{participant.stats.item6}}" width="30" height="30" style="margin-right: 2px; border-style: solid; border-color: #463714;">
+            </div>
+            <!-- Player stats -->
+            <div class="col-md-1">
+              <p style="text-align: center;">{{participant.stats.kills}}/{{participant.stats.deaths}}/{{participant.stats.assists}}</p>
+            </div>
+            <div class="col-md-1">
+              <p style="text-align: center;">{{participant.stats.totalMinionsKilled + participant.stats.neutralMinionsKilled}}</p>
+            </div>
+            <div class="col-md-1">
+              <p style="text-align: center;">{{participant.stats.goldEarned | number:'1.0':'en-US'}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col text-center">
+        <button class="btn btn-dark">
+          <a href="/inhouse/gamedetails?gameId={{ game.id }}" style="text-decoration: none; color:#b1ada0">Full game summary</a>
+        </button>
+        <p style="text-align: center; color: #0f202b;">Patch: {{game.gameData.gameVersion}}</p>
+      </div>
+    </div>
+  </div>
+</span>
